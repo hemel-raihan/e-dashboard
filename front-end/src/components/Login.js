@@ -13,7 +13,7 @@ const Login = () => {
             navigate('/')
         }
     })
-    
+
     const handleLogin = async () => {
         try {
             const response = await axios.post('http://localhost:5000/login', {
@@ -24,9 +24,9 @@ const Login = () => {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response.data)
-            if(response.data.name){
-                localStorage.setItem('user', JSON.stringify(response))
+            if(response.data.auth){
+                localStorage.setItem('user', JSON.stringify(response.data.user))
+                localStorage.setItem('token', JSON.stringify(response.data.auth))
                 navigate('/')
             }
             else{

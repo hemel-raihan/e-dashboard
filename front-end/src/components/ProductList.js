@@ -12,7 +12,13 @@ const ProductList = () => {
 
     const getProducts = async () => {
         try{
-            let response = await axios.get('http://localhost:5000/product-list')
+            const token = JSON.parse(localStorage.getItem('token'));
+
+            let response = await axios.get('http://localhost:5000/product-list', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             setProducts(response.data)
         }
         catch(err){

@@ -30,8 +30,9 @@ const SignUp = () => {
             },
         })
         result = await result.json()
-        if(result){
-            localStorage.setItem('user', JSON.stringify(result))
+        if(result.auth){
+            localStorage.setItem('user', JSON.stringify(result.result))
+            localStorage.setItem('token', JSON.stringify(result.auth))
             navigate('/')
         }
     }

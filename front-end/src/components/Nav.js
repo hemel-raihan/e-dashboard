@@ -8,7 +8,7 @@ const Nav = () => {
     let user = null;
     if (auth) {
         try {
-            user = JSON.parse(auth).data;
+            user = JSON.parse(auth);
         } catch (e) {
             console.error('Error parsing auth from localStorage:', e);
         }
