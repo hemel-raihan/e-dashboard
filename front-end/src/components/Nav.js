@@ -1,18 +1,45 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
 
 const Nav = () => {
-    return(
+    const auth = localStorage.getItem('user');
+    const navigate = useNavigate();
+
+    let user = null;
+    if (auth) {
+        try {
+            user = JSON.parse(auth).data;
+        } catch (e) {
+            console.error('Error parsing auth from localStorage:', e);
+        }
+    }
+
+    const logout = () => {
+        localStorage.clear();
+        navigate('/sign-up');
+    };
+
+    return (
         <div>
-            <ul className='nav-ul'>
-                <li><Link to="/">Products</Link></li>
-                <li><Link to="/add-product">Add Product</Link></li>
-                <li><Link to="/update-product">Update Product</Link></li>
-                <li><Link to="/logout">Logout</Link></li>
-                <li><Link to="/profile">Profile</Link></li>
-            </ul>
+            <img 
+            alt='logo'
+            className='logo'
+            src='https://yt3.googleusercontent.com/ytc/AIdro_lpwLOOTumlQiiMYMHbBgJfQXVyRBGrZdTZ6NbtY-YA8wg=s900-c-k-c0x00ffffff-no-rj' />
+            {user ? (
+                <ul className='nav-ul'>
+                    <li><Link to="/">Products</Link></li>
+                    <li><Link to="/add-product">Add Product</Link></li>
+                    <li><Link to="/update-product">Update Product</Link></li>
+                    <li><Link onClick={logout} to="/sign-up">Logout ({user.name})</Link></li>
+                </ul>
+            ) : (
+                <ul className='nav-ul nav-right'>
+                    <li><Link to="/sign-up">Sign Up</Link></li>
+                    <li><Link to="/login">Login</Link></li>
+                </ul>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default Nav;

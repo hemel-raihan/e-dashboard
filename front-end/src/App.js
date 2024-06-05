@@ -1,7 +1,13 @@
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Nav from './components/Nav'
 import Footer from './components/Footer'
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SignUp from './components/SignUp';
+import PrivateComponent from './components/PrivateComponent';
+import Login from './components/Login';
+import AddProduct from './components/AddProduct';
+import ProductList from './components/ProductList';
+import UpdateProduct from './components/UpdateProduct';
 
 function App() {
   return (
@@ -9,10 +15,17 @@ function App() {
       <BrowserRouter>
         <Nav/>
         <Routes>
-          <Route path='/' element={<h1>this is product page</h1>} />
-          <Route path='/add-product' element={<h1>Add product page</h1>} />
-          <Route path='/update-product' element={<h1>Update product page</h1>} />
-          <Route path='/profile' element={<h1>Profile page</h1>} />
+
+          <Route element={<PrivateComponent />}>
+            <Route path='/' element={<ProductList />} />
+            <Route path='/add-product' element={<AddProduct />} />
+            <Route path='/update-product/:id' element={<UpdateProduct />} />
+            <Route path='/profile' element={<h1>Profile page</h1>} />
+          </Route>
+
+          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/login' element={<Login />} />
+
         </Routes>
       </BrowserRouter>
       <Footer />
